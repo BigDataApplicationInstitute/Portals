@@ -36,6 +36,11 @@ namespace Portals.Controllers
             return View();
         }
 
+        public ActionResult ExternalLoginConfirmation(ExternalLoginConfirmationViewModel model)
+        {
+            return View(model);
+        }
+
         //
         // POST: /Account/Login
         [HttpPost]
