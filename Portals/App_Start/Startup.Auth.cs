@@ -2,6 +2,10 @@
 using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Owin;
+using System.Configuration;
+using Owin.Security.Providers.LinkedIn;
+using Microsoft.Owin.Security.Google;
+
 
 namespace Portals
 {
@@ -32,7 +36,16 @@ namespace Portals
             //   appId: "",
             //   appSecret: "");
 
-            //app.UseGoogleAuthentication();
+            app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions
+              {
+                 ClientId = ConfigurationManager.AppSettings["GoogleKey"],
+                 ClientSecret = ConfigurationManager.AppSettings["GoogleSecret"]
+              });
+
+            app.UseLinkedInAuthentication(
+                clientId: ConfigurationManager.AppSettings["LinkedInAPIKey"].ToString(),
+                clientSecret: ConfigurationManager.AppSettings["LinkedInAPISecret"].ToString());
+
         }
     }
 }
