@@ -5,9 +5,16 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using System.Net;
+using System.IO;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin.Security;
+using Microsoft.Owin.Security;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
+using LinkedIn.Api.Client.Owin;
+using LinkedIn.Api.Client.Owin.Profiles;
 using Portals.Models;
 
 namespace Portals.Controllers
@@ -18,6 +25,7 @@ namespace Portals.Controllers
         public AccountController()
             : this(new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext())))
         {
+
         }
 
         public AccountController(UserManager<ApplicationUser> userManager)
@@ -83,7 +91,7 @@ namespace Portals.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser() { UserName = model.UserName };
+                var user = new ApplicationUser() { UserName = model.UserName , Email = model.Email};
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
@@ -206,9 +214,11 @@ namespace Portals.Controllers
             {
                 return RedirectToAction("Login");
             }
+            var user = await UserManager.FindAsync(loginInfo.Login);
+       
 
             // Sign in the user with this external login provider if the user already has a login
-            var user = await UserManager.FindAsync(loginInfo.Login);
+         
             if (user != null)
             {
                 await SignInAsync(user, isPersistent: false);
@@ -219,7 +229,7 @@ namespace Portals.Controllers
                 // If the user does not have an account, then prompt the user to create an account
                 ViewBag.ReturnUrl = returnUrl;
                 ViewBag.LoginProvider = loginInfo.Login.LoginProvider;
-                return View("ExternalLoginConfirmation", new ExternalLoginConfirmationViewModel { UserName = loginInfo.DefaultUserName });
+                return View("ExternalLoginConfirmation", new ExternalLoginConfirmationViewModel { UserName = loginInfo.DefaultUserName,  });
             }
         }
 
@@ -272,6 +282,19 @@ namespace Portals.Controllers
                 }
                 var user = new ApplicationUser() { UserName = model.UserName };
                 var result = await UserManager.CreateAsync(user);
+
+                HttpWebRequest request = WebRequest.Create("http://api.linkedin.com/v1/people/~/connections/") as HttpWebRequest;
+
+                // Get response  
+                using (HttpWebResponse response = request.GetResponse() as HttpWebResponse)
+                {
+                    // Get the response stream  
+                    StreamReader reader = new StreamReader(response.GetResponseStream());
+
+                    // Console application output  
+                    Console.WriteLine(reader.ReadToEnd());
+                }  
+
                 if (result.Succeeded)
                 {
                     result = await UserManager.AddLoginAsync(user.Id, info.Login);

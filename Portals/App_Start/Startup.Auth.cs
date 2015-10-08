@@ -46,6 +46,25 @@ namespace Portals
                 clientId: ConfigurationManager.AppSettings["LinkedInAPIKey"].ToString(),
                 clientSecret: ConfigurationManager.AppSettings["LinkedInAPISecret"].ToString());
 
+            //var linkedInOptions = new LinkedInAuthenticationOptions();
+
+            //linkedInOptions.ClientId = ConfigurationManager.AppSettings["LinkedInAPIKey"].ToString();
+            //linkedInOptions.ClientSecret = ConfigurationManager.AppSettings["LinkedInAPISecret"].ToString();
+
+            //linkedInOptions.Scope.Add("r_fullprofile");
+
+            //linkedInOptions.Provider = new LinkedInAuthenticationProvider()
+            //{
+            //    OnAuthenticated = async context =>
+            //    {
+            //        context.Identity.AddClaim(new System.Security.Claims.Claim("LinkedIn_AccessToken", context.AccessToken));
+            //    }
+            //};
+
+            //linkedInOptions.SignInAsAuthenticationType = DefaultAuthenticationTypes.ExternalCookie;
+
+            //app.UseLinkedInAuthentication(linkedInOptions);
+
         }
     }
 }

@@ -39,6 +39,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="LinkedIn.Api.Client.Core, Version=1.3.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\LinkedIn.1.3.3\lib\net45\LinkedIn.Api.Client.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="LinkedIn.Api.Client.Owin, Version=1.3.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\LinkedIn.1.3.3\lib\net45\LinkedIn.Api.Client.Owin.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Owin, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Owin.3.0.1\lib\net45\Microsoft.Owin.dll</HintPath>
@@ -214,6 +222,7 @@
     <Content Include="js\grayscale.js" />
     <Content Include="js\jquery.easing.min.js" />
     <Content Include="js\jquery.js" />
+    <Content Include="LinkedIn_API_ReadMe.txt" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="font-awesome\fonts\fontawesome-webfont.eot" />

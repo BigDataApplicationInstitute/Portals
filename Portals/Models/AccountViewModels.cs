@@ -7,6 +7,9 @@ namespace Portals.Models
         [Required]
         [Display(Name = "User name")]
         public string UserName { get; set; }
+
+        [Display(Name = "Email")]
+        public string Email { get; set; }
     }
 
     public class ManageUserViewModel
@@ -59,5 +62,10 @@ namespace Portals.Models
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+
+        [Required] 
+        [EmailAddress(ErrorMessage = "Invalid Email Address")]
+        [Display(Name = "Email")]
+        public string Email { get; set; }
     }
 }
