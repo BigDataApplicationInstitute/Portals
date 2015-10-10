@@ -184,15 +184,25 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CoursesController.cs" />
+    <Compile Include="Controllers\ForumController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\JobsController.cs" />
     <Compile Include="Controllers\MeetUpController.cs" />
+    <Compile Include="DAL\ForumRepository.cs" />
+    <Compile Include="DAL\IForumRepository.cs" />
+    <Compile Include="DAL\IThreadRepository.cs" />
+    <Compile Include="DAL\ThreadRepository.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Course.cs" />
+    <Compile Include="Models\Forum.cs" />
+    <Compile Include="Models\ForumDbInitializer.cs" />
+    <Compile Include="Models\ForumsContext.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\Post.cs" />
+    <Compile Include="Models\Thread.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -200,6 +210,10 @@
     <Content Include="App_Data\Courses.mdf" />
     <Content Include="App_Data\Courses_log.ldf">
       <DependentUpon>Courses.mdf</DependentUpon>
+    </Content>
+    <Content Include="App_Data\Forums.mdf" />
+    <Content Include="App_Data\Forums_log.ldf">
+      <DependentUpon>Forums.mdf</DependentUpon>
     </Content>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
@@ -303,9 +317,16 @@
     <Content Include="Views\Courses\Index.cshtml" />
     <Content Include="Views\MeetUp\Index.cshtml" />
     <Content Include="Views\Jobs\Index.cshtml" />
+    <Content Include="Views\Forum\Index.cshtml" />
+    <Content Include="Views\Forum\Create.cshtml" />
+    <Content Include="Views\Forum\Delete.cshtml" />
+    <Content Include="Views\Forum\Details.cshtml" />
+    <Content Include="Views\Forum\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="infrastructure\" />
+    <Folder Include="Views\Post\" />
+    <Folder Include="Views\Thread\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
