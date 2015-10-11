@@ -1,0 +1,16 @@
+﻿@model IEnumerable<Portals.Models.Blog>
+
+@{
+
+}
+<div class="row">
+    <div class="col-md-12">
+        @foreach (var item in Model)
+        {
+            <div class="row">
+                <div class="col-md-9"><a href="@Url.Action("Detail", "Blog", new {id=item.Id })">@item.Title</a></div>
+                <div class="col-md-3">@Portals.infrastructure.GeneralHelper.TimeAgo(item.PostTime.Value)</div>
+            </div>
+        }
+    </div>
+</div>
