@@ -1,45 +1,62 @@
-﻿using Portals.DAL;
-using Portals.Models;
+﻿using Portals.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using PagedList;
+using PagedList.Mvc;
 
-namespace Portals.Controllers
+namespace Forum.Controllers
 {
     public class ForumController : Controller
     {
-        private IForumRepository forumRepository;
+        //
+        // GET: /Forum/
+        ForumDbContext fe = new ForumDbContext();
 
-        public ForumController()
+        public ActionResult Index()
         {
-            this.forumRepository = new ForumRepository(new ForumsContext());
-        }
-
-        public ForumController(IForumRepository forumRepository)
-        {
-            this.forumRepository = forumRepository;
-        }
-
-        public ViewResult Index()
-        {
-            var forums = forumRepository.GetForums().OrderBy(f => f.Sequence);
+            List<Portals.Models.Forum> forums = fe.Forums.ToList();
             return View(forums);
         }
 
-        [HttpPost]
-        public ActionResult Create(Models.Forum forum)
+        public ActionResult Details(int? id)
         {
-            forumRepository.CreateForum(forum);
-            return View("Create");
+            Portals.Models.Forum  forum = fe.Forums.FirstOrDefault(f => f.ForumId == id);
+            return View(forum);
         }
 
-        [HttpPost]
-        public RedirectToRouteResult Delete(int forumId)
+        public ActionResult Search(string search, string searchBy, string sortBy, int? page)
         {
-            forumRepository.DeleteForum(forumId);
-            return RedirectToAction("Index");
+            ViewBag.SortNameParameter = string.IsNullOrEmpty(sortBy) ? "Name desc" : "";
+
+            List<Message> SearchResults = new List<Message>();
+
+            if (!string.IsNullOrWhiteSpace(search))
+            {
+                foreach (var message in fe.Messages)
+                {
+                    SearchResults.Add(message);
+                }
+
+                if (string.IsNullOrWhiteSpace(search) != true)
+                    SearchResults = SearchResults.Where(m => m.Content.Contains(search)).ToList();
+
+                switch (sortBy)
+                {
+                    case "Name desc":
+                        SearchResults = SearchResults.OrderByDescending(a => a.MessageId).ToList();
+                        break;
+                    default:
+                        SearchResults = SearchResults.OrderBy(a => a.MessageId).ToList();
+                        break;
+                }
+            }
+
+
+            return View(SearchResults.ToPagedList(page ?? 1, 3));
         }
+
     }
 }

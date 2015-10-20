@@ -68,6 +68,12 @@
       <HintPath>..\packages\Owin.Security.Providers.1.25\lib\net45\Owin.Security.Providers.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="PagedList">
+      <HintPath>..\..\..\..\Downloads\Forum-master\Forum\bin\PagedList.dll</HintPath>
+    </Reference>
+    <Reference Include="PagedList.Mvc">
+      <HintPath>..\..\..\..\Downloads\Forum-master\Forum\bin\PagedList.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -188,135 +194,94 @@
     <Compile Include="Controllers\BlogController.cs" />
     <Compile Include="Controllers\CoursesController.cs" />
     <Compile Include="Controllers\ForumController.cs" />
+    <Compile Include="Controllers\ForumThreadController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\JobsController.cs" />
     <Compile Include="Controllers\MeetUpController.cs" />
-    <Compile Include="DAL\ForumRepository.cs" />
-    <Compile Include="DAL\IForumRepository.cs" />
-    <Compile Include="DAL\IThreadRepository.cs" />
-    <Compile Include="DAL\ThreadRepository.cs" />
+    <Compile Include="Controllers\MessageController.cs" />
+    <Compile Include="Controllers\SubForumController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="infrastructure\GeneralHelper.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\Blog.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
+    <Compile Include="Models\Blog.cs" />
     <Compile Include="Models\Course.cs" />
-    <Compile Include="Models\Courses.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\Forum.cs" />
-    <Compile Include="Models\ForumDbInitializer.cs" />
-    <Compile Include="Models\ForumsContext.cs" />
     <Compile Include="Models\IdentityModels.cs" />
-    <Compile Include="Models\Model1.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Model1.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Model1.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Course.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Course.edmx</DependentUpon>
-    </Compile>
+    <Compile Include="Models\Message.cs" />
     <Compile Include="Models\Post.cs" />
     <Compile Include="Models\Thread.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Startup.cs" />
+    <Compile Include="App_Start\Startup.cs" />
+    <Compile Include="Utilities\Enum\SubForums.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\Courses.mdf" />
-    <Content Include="App_Data\Courses_log.ldf">
-      <DependentUpon>Courses.mdf</DependentUpon>
+    <Content Include="App_Data\Blog.mdf" />
+    <Content Include="App_Data\Blog_log.ldf">
+      <DependentUpon>Blog.mdf</DependentUpon>
     </Content>
-    <Content Include="App_Data\Forums.mdf" />
-    <Content Include="App_Data\Forums_log.ldf">
-      <DependentUpon>Forums.mdf</DependentUpon>
+    <Content Include="App_Data\Forum.mdf" />
+    <Content Include="App_Data\Forum_log.ldf">
+      <DependentUpon>Forum.mdf</DependentUpon>
+    </Content>
+    <Content Include="App_Data\User.mdf" />
+    <Content Include="App_Data\User_log.ldf">
+      <DependentUpon>User.mdf</DependentUpon>
     </Content>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\summernote.css" />
-    <Content Include="css\bootstrap.css" />
-    <Content Include="css\bootstrap.min.css" />
-    <Content Include="css\grayscale.css" />
+    <Content Include="Content\grayscale.css" />
     <Content Include="favicon.ico" />
-    <Content Include="font-awesome\css\font-awesome.css" />
-    <Content Include="font-awesome\css\font-awesome.min.css" />
-    <Content Include="font-awesome\fonts\fontawesome-webfont.svg" />
-    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Content\font-awesome\css\font-awesome.css" />
+    <Content Include="Content\font-awesome\css\font-awesome.min.css" />
+    <Content Include="Content\font-awesome\fonts\fontawesome-webfont.svg" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="img\DataAppInstitute.jpg" />
     <Content Include="img\downloads-bg.jpg" />
     <Content Include="img\intro-bg.jpg" />
     <Content Include="img\map-marker.png" />
-    <Content Include="js\bootstrap.js" />
-    <Content Include="js\bootstrap.min.js" />
-    <Content Include="js\grayscale.js" />
-    <Content Include="js\jquery.easing.min.js" />
-    <Content Include="js\jquery.js" />
+    <Content Include="Scripts\js\bootstrap.js" />
+    <Content Include="Scripts\js\bootstrap.min.js" />
+    <Content Include="Scripts\js\grayscale.js" />
+    <Content Include="Scripts\js\jquery.easing.min.js" />
+    <Content Include="Scripts\js\jquery.js" />
     <Content Include="LinkedIn_API_ReadMe.txt" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="font-awesome\fonts\fontawesome-webfont.eot" />
-    <Content Include="font-awesome\fonts\fontawesome-webfont.ttf" />
-    <Content Include="font-awesome\fonts\fontawesome-webfont.woff" />
-    <Content Include="font-awesome\fonts\FontAwesome.otf" />
-    <Content Include="font-awesome\less\bordered-pulled.less" />
-    <Content Include="font-awesome\less\core.less" />
-    <Content Include="font-awesome\less\fixed-width.less" />
-    <Content Include="font-awesome\less\font-awesome.less" />
-    <Content Include="font-awesome\less\icons.less" />
-    <Content Include="font-awesome\less\larger.less" />
-    <Content Include="font-awesome\less\list.less" />
-    <Content Include="font-awesome\less\mixins.less" />
-    <Content Include="font-awesome\less\path.less" />
-    <Content Include="font-awesome\less\rotated-flipped.less" />
-    <Content Include="font-awesome\less\spinning.less" />
-    <Content Include="font-awesome\less\stacked.less" />
-    <Content Include="font-awesome\less\variables.less" />
-    <Content Include="font-awesome\scss\font-awesome.scss" />
-    <Content Include="font-awesome\scss\_bordered-pulled.scss" />
-    <Content Include="font-awesome\scss\_core.scss" />
-    <Content Include="font-awesome\scss\_fixed-width.scss" />
-    <Content Include="font-awesome\scss\_icons.scss" />
-    <Content Include="font-awesome\scss\_larger.scss" />
-    <Content Include="font-awesome\scss\_list.scss" />
-    <Content Include="font-awesome\scss\_mixins.scss" />
-    <Content Include="font-awesome\scss\_path.scss" />
-    <Content Include="font-awesome\scss\_rotated-flipped.scss" />
-    <Content Include="font-awesome\scss\_spinning.scss" />
-    <Content Include="font-awesome\scss\_stacked.scss" />
-    <Content Include="font-awesome\scss\_variables.scss" />
-    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
-    <Content Include="less\grayscale.less" />
-    <Content Include="less\mixins.less" />
-    <Content Include="less\variables.less" />
-    <Content Include="ClassDiagram1.cd" />
-    <EntityDeploy Include="Models\Course.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Course.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\Model1.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Course.edmx</DependentUpon>
-      <LastGenOutput>Model1.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="Models\Course.edmx.diagram">
-      <DependentUpon>Course.edmx</DependentUpon>
-    </Content>
-    <Content Include="Models\Model1.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Course.edmx</DependentUpon>
-      <LastGenOutput>Model1.cs</LastGenOutput>
-    </Content>
+    <Content Include="Content\font-awesome\fonts\fontawesome-webfont.eot" />
+    <Content Include="Content\font-awesome\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Content\font-awesome\fonts\fontawesome-webfont.woff" />
+    <Content Include="Content\font-awesome\fonts\FontAwesome.otf" />
+    <Content Include="Content\font-awesome\less\bordered-pulled.less" />
+    <Content Include="Content\font-awesome\less\core.less" />
+    <Content Include="Content\font-awesome\less\fixed-width.less" />
+    <Content Include="Content\font-awesome\less\font-awesome.less" />
+    <Content Include="Content\font-awesome\less\icons.less" />
+    <Content Include="Content\font-awesome\less\larger.less" />
+    <Content Include="Content\font-awesome\less\list.less" />
+    <Content Include="Content\font-awesome\less\mixins.less" />
+    <Content Include="Content\font-awesome\less\path.less" />
+    <Content Include="Content\font-awesome\less\rotated-flipped.less" />
+    <Content Include="Content\font-awesome\less\spinning.less" />
+    <Content Include="Content\font-awesome\less\stacked.less" />
+    <Content Include="Content\font-awesome\less\variables.less" />
+    <Content Include="Content\font-awesome\scss\font-awesome.scss" />
+    <Content Include="Content\font-awesome\scss\_bordered-pulled.scss" />
+    <Content Include="Content\font-awesome\scss\_core.scss" />
+    <Content Include="Content\font-awesome\scss\_fixed-width.scss" />
+    <Content Include="Content\font-awesome\scss\_icons.scss" />
+    <Content Include="Content\font-awesome\scss\_larger.scss" />
+    <Content Include="Content\font-awesome\scss\_list.scss" />
+    <Content Include="Content\font-awesome\scss\_mixins.scss" />
+    <Content Include="Content\font-awesome\scss\_path.scss" />
+    <Content Include="Content\font-awesome\scss\_rotated-flipped.scss" />
+    <Content Include="Content\font-awesome\scss\_spinning.scss" />
+    <Content Include="Content\font-awesome\scss\_stacked.scss" />
+    <Content Include="Content\font-awesome\scss\_variables.scss" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.woff2" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -363,7 +328,6 @@
     <Content Include="Views\Courses\Edit.cshtml" />
     <Content Include="Views\Courses\Index.cshtml" />
     <Content Include="Views\MeetUp\Index.cshtml" />
-    <Content Include="Views\Jobs\Index.cshtml" />
     <Content Include="Views\Forum\Index.cshtml" />
     <Content Include="Views\Forum\Create.cshtml" />
     <Content Include="Views\Forum\Delete.cshtml" />
@@ -375,16 +339,18 @@
     <Content Include="Views\Blog\Index.cshtml" />
     <Content Include="Views\Blog\AdminIndex.cshtml" />
     <Content Include="Views\Blog\Detail.cshtml" />
+    <Content Include="Views\Forum\Search.cshtml" />
+    <Content Include="Views\Message\Create.cshtml" />
+    <Content Include="Views\ForumThread\Create.cshtml" />
+    <Content Include="Views\ForumThread\Details.cshtml" />
+    <Content Include="Views\ForumThread\Index.cshtml" />
+    <Content Include="Views\ForumThread\CreateReply.cshtml" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="Views\GeneralHelper\" />
-    <Folder Include="Views\Post\" />
-    <Folder Include="Views\Thread\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.eot" />
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
   </ItemGroup>

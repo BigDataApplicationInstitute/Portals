@@ -13,11 +13,11 @@ namespace Portals.Controllers
 {
     public class BlogController : Controller
     {
-        private CoursesEntities db = new CoursesEntities();
+        BlogDbContext blogDb = new BlogDbContext();
         // GET: /Blog/
         public ActionResult Index()
         {
-            return View(db.Blog.ToList());
+            return View(blogDb.Blog.ToList());
         }
         public ActionResult Detail(int? id)
         {
@@ -25,7 +25,7 @@ namespace Portals.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Blog blogItem = db.Blog.Where(x => x.Id == id && x.Status == 1).FirstOrDefault();
+            Blog blogItem = blogDb.Blog.Where(x => x.Id == id && x.Status == 1).FirstOrDefault();
             if (blogItem == null)
             {
                 return HttpNotFound();
@@ -36,7 +36,7 @@ namespace Portals.Controllers
         [Authorize(Roles = "admin")]
         public ActionResult AdminIndex()
         {
-            return View(db.Blog.ToList());
+            return View(blogDb.Blog.ToList());
         }
 
         // GET: /Blog/Create
@@ -59,8 +59,8 @@ namespace Portals.Controllers
                 blog.PostUserId = User.Identity.GetUserId();
                 blog.IsHome = 0;
                 blog.Status = 1;
-                db.Blog.Add(blog);
-                db.SaveChanges();
+                blogDb.Blog.Add(blog);
+                blogDb.SaveChanges();
                 return RedirectToAction("AdminIndex");
             }
 
@@ -75,7 +75,7 @@ namespace Portals.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Blog blog = db.Blog.Find(id);
+            Blog blog = blogDb.Blog.Find(id);
             if (blog == null)
             {
                 return HttpNotFound();
@@ -92,8 +92,8 @@ namespace Portals.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(blog).State = EntityState.Modified;
-                db.SaveChanges();
+                blogDb.Entry(blog).State = EntityState.Modified;
+                blogDb.SaveChanges();
                 return RedirectToAction("AdminIndex");
             }
             return View(blog);
@@ -107,7 +107,7 @@ namespace Portals.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Blog blog = db.Blog.Find(id);
+            Blog blog = blogDb.Blog.Find(id);
             if (blog == null)
             {
                 return HttpNotFound();
@@ -120,9 +120,9 @@ namespace Portals.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Blog blog = db.Blog.Find(id);
-            db.Blog.Remove(blog);
-            db.SaveChanges();
+            Blog blog = blogDb.Blog.Find(id);
+            blogDb.Blog.Remove(blog);
+            blogDb.SaveChanges();
             return RedirectToAction("AdminIndex");
         }
 
@@ -130,7 +130,7 @@ namespace Portals.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                blogDb.Dispose();
             }
             base.Dispose(disposing);
         }
